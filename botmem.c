@@ -12,3 +12,9 @@ struct botmem_dev {
     u8 mem_value;
 };
 
+static struct of_device_id botmem_dt_ids[] = {
+    {
+        .compatible = "dev,botmem"
+    },
+    { }
+};
