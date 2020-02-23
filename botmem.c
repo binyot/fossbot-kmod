@@ -141,3 +141,8 @@ static void botmem_exit(void) {
 module_init(botmem_init);
 module_exit(botmem_exit);
 
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("binyot <github.com/binyot>");
+MODULE_DESCRIPTION("Exposes character device for FOSSBot memory");
+MODULE_VERSION("1.0");
+
