@@ -82,7 +82,7 @@ static int botmem_probe(struct platform_device *pdev) {
 
     ret_val = misc_register(&dev->miscdev);
     if (ret_val) {
-        pr_info("Failed to register misc device");
+        pr_info("Failed to register misc device\n");
         goto bad_exit;
     }
 
@@ -121,4 +121,23 @@ static ssize_t botmem_write(struct file *file, const char *buffer, size_t len, l
     return len;
 }
 
+static int botmem_remove(struct platform_device *pdev) {
+    struct botmem_dev *dev = (struct botmem_dev*)platform_get_drvdata(pdev);
+    pr_info("Removing FOSSBot Memory module\n");
+
+    iowrite32(0x00, dev->regs);
+    misc_deregister(&dev->miscdev);
+    pr_info("Removed FOSSBot Memory module\n");
+
+    return 0;
+}
+
+static void botmem_exit(void) {
+    pr_info("Unregistering FOSSBot Memory module\n");
+    platform_driver_unregister(&botmem_platform);
+    pr_info("Unregistered FOSSBot Memory module\n");
+}
+
+module_init(botmem_init);
+module_exit(botmem_exit);
 
