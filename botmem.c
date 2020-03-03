@@ -50,7 +50,7 @@ static int botmem_init(void) {
         pr_err("platform_driver_register returned %d\n", ret_val);
         return ret_val;
     }
-    pr_info("Custom LEDs module initialized\n");
+    pr_info("FOSSBot Memory module initialized\n");
     return 0;
 }
 
