@@ -110,7 +110,7 @@ static ssize_t botmem_read(struct file *file, char *buffer, size_t len, loff_t *
 
 static ssize_t botmem_write(struct file *file, const char *buffer, size_t len, loff_t *offset) { 
     struct botmem_dev *dev = container_of(file->private_data, struct botmem_dev, miscdev);
-    int success = copy_from_user(buffer, &dev->mem_value, sizeof(dev->mem_value));
+    int success = copy_from_user(&dev->mem_value, buffer, sizeof(dev->mem_value));
     if (!success) {
         pr_info("Failed to write memory value\n");
         return -EFAULT;
