@@ -19,7 +19,7 @@ struct botmem_dev {
 
 static struct of_device_id botmem_dt_ids[] = {
     {
-        .compatible = "dev,botmem"
+        .compatible = "dev,custom_leds"
     },
     { }
 };
@@ -79,7 +79,7 @@ static int botmem_probe(struct platform_device *pdev)
     iowrite32(dev->reg_value, dev->regs);
 
     dev->miscdev.minor = MISC_DYNAMIC_MINOR;
-    dev->miscdev.name = "botmem";
+    dev->miscdev.name = "custom_leds";
     dev->miscdev.fops = &botmem_fops;
 
     ret_val = misc_register(&dev->miscdev);
@@ -105,7 +105,7 @@ static ssize_t botmem_read(struct file *file, char *buffer, size_t len, loff_t *
     struct botmem_dev *dev = container_of(file->private_data, struct botmem_dev, miscdev);
     success = copy_to_user(buffer, &dev->reg_value, sizeof(dev->reg_value));
     if(success != 0) {
-        pr_info("Failed to read memory value\n);
+        pr_info("Failed to read memory value\n");
         return -EFAULT;
     }
 
